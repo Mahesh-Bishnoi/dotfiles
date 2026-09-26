@@ -1,0 +1,14 @@
+# Fedora — installed via dnf.
+git
+curl
+wget
+unzip
+zip
+fish
+zsh
+micro
+eza
+bat
+fzf
+openssh-clients
+gh

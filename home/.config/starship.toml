@@ -1,0 +1,110 @@
+# Starship prompt — single prompt for bash, zsh and fish.
+# Nerd Fonts are present (MesloLG Nerd Font), so nerd symbols are enabled.
+format = "$os$directory$git_branch$git_status$git_state$nodejs$java$python$rust$golang$docker_context$nix_shell$conda$direnv$cmd_duration$line_break$character"
+
+add_newline = true
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+[os]
+disabled = true
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold blue"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+symbol = " "
+style = "bold purple"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "bold yellow"
+conflicted = "🏳"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "\\$${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[git_state]
+format = '([$state(($progress_current/$progress_total))]($style)) '
+
+[nodejs]
+format = "via [⬢ $version]($style) "
+style = "bold green"
+not_capable_style = "bold red"
+# mise shims resolve node; only show when relevant files exist
+detect_files = ["package.json", ".node-version", ".nvmrc", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lockb", "bun.lock"]
+detect_extensions = ["js", "ts", "mjs", "cjs"]
+
+[java]
+format = "via [☕ $version]($style) "
+style = "bold red"
+detect_files = ["pom.xml", "build.gradle", "build.gradle.kts", "settings.gradle", ".java-version", "mvnw", "gradlew"]
+
+[python]
+format = "via [🐍 $version]($style) "
+style = "bold yellow"
+detect_files = ["requirements.txt", "pyproject.toml", "setup.py", ".python-version", "Pipfile", "poetry.lock"]
+
+[rust]
+format = "via [🦀 $version]($style) "
+style = "bold red"
+detect_files = ["Cargo.toml"]
+
+[golang]
+format = "via [🐹 $version]($style) "
+style = "bold cyan"
+detect_files = ["go.mod", "go.sum"]
+
+[docker_context]
+format = "via [🐳 $context]($style) "
+style = "bold blue"
+only_with_files = true
+detect_files = ["Dockerfile", "docker-compose.yml", "compose.yml", ".dockerignore"]
+
+[conda]
+format = "via [$environment]($style) "
+style = "bold green"
+
+[direnv]
+format = "[$symbol$allowed]($style) "
+symbol = "env "
+style = "bold yellow"
+disabled = false
+allowed_msg = "✓"
+not_allowed_msg = "✗"
+denied_msg = "denied"
+loaded_msg = "loaded"
+
+[nix_shell]
+format = "via [$symbol$state]($style) "
+symbol = "❄️ "
+style = "bold blue"
+
+[cmd_duration]
+format = "took [$duration]($style) "
+style = "yellow"
+min_time = 3000
+show_milliseconds = false
+
+[status]
+disabled = false
+format = "[$symbol$status]($style) "
+symbol = "✗"
+success_symbol = ""
+style = "bold red"
+map_symbol = true
+
+[line_break]
+disabled = false

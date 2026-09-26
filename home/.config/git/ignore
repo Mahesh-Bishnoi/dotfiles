@@ -1,0 +1,20 @@
+# Global gitignore — applies to all repos via core.excludesFile.
+# Repo-specific ignores belong in that repo's .gitignore.
+
+# OS / editor droppings
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Build / tool caches (only when not tracked by the project itself)
+node_modules/.cache/
+dist/
+
+# Secrets people accidentally add
+.env.local
+.env.*.local
+*.pem

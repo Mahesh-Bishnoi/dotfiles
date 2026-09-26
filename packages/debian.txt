@@ -1,0 +1,15 @@
+# Ubuntu / Debian — installed via apt.
+# NOTE: Debian/Ubuntu ship `bat` as `batcat`; bootstrap.sh symlinks bat->batcat.
+# eza is only in Ubuntu 24.04+ / Debian 13+; aliases fall back to ls if absent.
+git
+curl
+wget
+unzip
+zip
+fish
+zsh
+micro
+eza
+bat
+fzf
+openssh-client

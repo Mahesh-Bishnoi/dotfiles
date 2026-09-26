@@ -1,0 +1,82 @@
+[user]
+	email = bishnoimahesh96@gmail.com
+	name = Mahesh Bishnoi
+	signingkey = ~/.ssh/id_ed25519.pub
+	signingkey = gpg.format
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
+[column]
+	ui = auto
+[core]
+	editor = micro
+	# delta (system /usr/bin) — press `s` to toggle side-by-side
+	pager = delta --navigate --side-by-side --line-numbers
+	excludesFile = ~/.config/git/ignore
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+[merge]
+	conflictstyle = zdiff3
+	tool = meld
+[mergetool]
+	prompt = false
+	keepBackup = false
+[diff]
+	colorMoved = plain
+	algorithm = histogram
+	tool = meld
+[difftool]
+	prompt = false
+[help]
+	autocorrect = prompt
+[commit]
+	verbose = true
+	gpgsign = true
+[rebase]
+	autostash = true
+	updateRefs = true
+	missingCommitsCheck = warn
+[log]
+	date = iso
+[tag]
+	sort = version:refname
+	gpgsign = true
+[status]
+	showStash = true
+	submoduleSummary = true
+[grep]
+	lineNumber = true
+	patternType = perl
+[credential]
+	# interim for your HTTPS remotes; `gh auth login` replaces this with its own helper
+	helper = cache --timeout=7200
+[alias]
+	st = status --short --branch
+	co = checkout
+	sw = switch
+	br = branch --column
+	ci = commit
+	amend = commit --amend --no-edit
+	unstage = restore --staged
+	last = log -1 --stat
+	lg = log --graph --pretty=format:'%h %ad %an %s' --date=short -20
+	whoami = config user.email

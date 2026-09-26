@@ -1,0 +1,15 @@
+# Arch / CachyOS — installed via pacman (no AUR needed: mise, starship and
+# opencode come from their official installers in bootstrap.sh).
+git
+curl
+wget
+unzip
+zip
+fish
+zsh
+micro
+eza
+bat
+fzf
+openssh
+github-cli

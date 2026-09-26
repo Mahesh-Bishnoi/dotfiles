@@ -1,0 +1,14 @@
+{
+    "colorscheme": "catppuccin-macchiato",
+    "tabsize": 4,
+    "indentchar": " ",
+    "autosu": true,
+    "mkparents": true,
+    "savecursor": true,
+    "savehistory": true,
+    "saveundo": true,
+    "clipboard": "external",
+    "eol": "lf",
+    "trimtrailingws": "all",
+    "relativeruler": false
+}
