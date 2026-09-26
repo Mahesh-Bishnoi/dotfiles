@@ -21,7 +21,11 @@ dynamic context pruning — on **CachyOS/Arch, Ubuntu, Debian and Fedora**.
 
 > **Never committed:** `~/.ssh/id_*` private keys, `~/.ssh/allowed_signers`
 > (per-machine, generated), `opencode/service.json` (contains a password),
-> `node_modules`, lockfiles, `*.bak-*`.
+> `node_modules`, lockfiles, `*.bak-*`, `*.bak-dotfiles-*`, `.env`, `*.key`,
+> `context7.txt`, fish `fish_variables`, and local secret drop-ins
+> (`~/.config/shell/env.local.sh`, fish `conf.d/99-local.fish`,
+> `~/.bashrc.local`, `~/.zshrc.local`). API values stay on the machine.
+> Configs in git only use safe references like `{env:NAME}`.
 
 ## Quickstart
 

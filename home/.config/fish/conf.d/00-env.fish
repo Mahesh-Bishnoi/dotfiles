@@ -42,3 +42,9 @@ set -e NVM_DIR 2>/dev/null
 if set -qU DOCKER_HOST
     set -eU DOCKER_HOST
 end
+
+# Local secrets (untracked, never committed).
+# Fish auto loads ~/.config/fish/conf.d/99-local.fish when present, so put
+# machine only exports there, for example:
+#   set -gx CONTEXT7_API_KEY "..."
+# That file is ignored by git. See .gitignore.

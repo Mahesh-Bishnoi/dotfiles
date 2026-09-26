@@ -72,3 +72,11 @@ if [ -n "${NVM_DIR-}" ]; then
     *".nvm"*) unset NVM_DIR ;;
   esac
 fi
+
+# Local secrets (untracked, never committed).
+# Put machine only exports in ~/.config/shell/env.local.sh, for example:
+#   export CONTEXT7_API_KEY="..."
+# That file is ignored by git. See .gitignore.
+if [ -f "$HOME/.config/shell/env.local.sh" ]; then
+  . "$HOME/.config/shell/env.local.sh"
+fi

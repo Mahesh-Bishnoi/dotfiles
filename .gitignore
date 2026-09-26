@@ -1,3 +1,15 @@
 .DS_Store
 *~
 *.swp
+*.bak-dotfiles-*
+.bak-dotfiles-*
+.env
+*.key
+*token*
+*secret*
+context7.txt
+fish_variables
+home/.config/shell/env.local.sh
+home/.config/fish/conf.d/99-local.fish
+.bashrc.local
+.zshrc.local

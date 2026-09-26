@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+# Pre-commit secret guard for this dotfiles repo.
+# Blocks staged literal API keys while allowing safe {env:NAME} references.
+# Install once per clone: git config core.hooksPath .githooks
+
+staged="$(git diff --cached --unified=0 -- . ':!package-lock.json' ':!.githooks' 2>/dev/null || true)"
+[ -z "$staged" ] && exit 0
+
+fail=0
+deny() {
+  printf 'pre-commit blocked: %s\n' "$1" >&2
+  fail=1
+}
+
+# Literal Tavily keys always start with tvly-. The safe opencode reference
+# {env:TAVILY_API_KEY} does not contain that prefix, so this is precise.
+if printf '%s' "$staged" | grep -q 'tvly-'; then
+  deny "staged diff contains a literal Tavily key (tvly-). Use {env:TAVILY_API_KEY} in configs and keep values in untracked local files."
+fi
+
+# Added lines that assign CONTEXT7_API_KEY or TAVILY_API_KEY with a value,
+# except the safe {env:NAME} reference form. Comment lines are ignored so
+# documented examples (e.g. "# export CONTEXT7_API_KEY=...") don't trip it.
+added="$(printf '%s' "$staged" | grep '^+' | grep -v '^+++' | grep -v '^+[[:space:]]*#' || true)"
+if [ -n "$added" ]; then
+  if printf '%s' "$added" | grep -E 'CONTEXT7_API_KEY|TAVILY_API_KEY' | grep -E '[:=]' | grep -v '{env:' | grep -q .; then
+    deny "staged diff assigns an API key value. Keep values in ~/.config/shell/env.local.sh or fish 99-local.fish (both ignored)."
+  fi
+fi
+
+if [ "$fail" -ne 0 ]; then
+  printf 'If this is a false positive, use: git commit --no-verify\n' >&2
+  exit 1
+fi
+exit 0

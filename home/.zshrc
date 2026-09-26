@@ -58,6 +58,9 @@ fi
 # spring-initializr-tui helper
 alias spring-init="$HOME/code/spring-initializr-tui/target/spring-initializr-tui"
 
+# Machine specific tweaks (untracked, never committed).
+[ -f "$HOME/.zshrc.local" ] && . "$HOME/.zshrc.local"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
