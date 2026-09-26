@@ -26,7 +26,7 @@ dynamic context pruning — on **CachyOS/Arch, Ubuntu, Debian and Fedora**.
 ## Quickstart
 
 ```bash
-git clone https://github.com/<you>/dotfiles.git ~/code/dotfiles
+git clone https://github.com/Mahesh-Bishnoi/dotfiles.git ~/code/dotfiles
 cd ~/code/dotfiles
 ./bootstrap.sh -y
 ```
@@ -58,9 +58,9 @@ Useful flags: `--links-only` (just re-symlink after `git pull`),
 ```bash
 # cloud-init user-data (runcmd) alternative:
 #   runcmd:
-#     - [su, ubuntu, -c, "git clone https://github.com/<you>/dotfiles.git ~/code/dotfiles && ~/code/dotfiles/bootstrap.sh -y"]
+#     - [su, ubuntu, -c, "git clone https://github.com/Mahesh-Bishnoi/dotfiles.git ~/code/dotfiles && ~/code/dotfiles/bootstrap.sh -y"]
 sudo apt-get update && sudo apt-get install -y git
-git clone https://github.com/<you>/dotfiles.git ~/code/dotfiles
+git clone https://github.com/Mahesh-Bishnoi/dotfiles.git ~/code/dotfiles
 ~/code/dotfiles/bootstrap.sh -y
 ```
 
@@ -71,7 +71,7 @@ aliases degrade gracefully to `ls` when missing; `gh` comes via mise (not apt).
 
 ```bash
 sudo dnf install -y git
-git clone https://github.com/<you>/dotfiles.git ~/code/dotfiles
+git clone https://github.com/Mahesh-Bishnoi/dotfiles.git ~/code/dotfiles
 ~/code/dotfiles/bootstrap.sh -y
 ```
 

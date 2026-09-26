@@ -3,7 +3,7 @@
 # bootstrap.sh — turn a fresh CachyOS / Ubuntu / Debian / Fedora machine into
 # this dotfiles repo's environment.
 #
-#   git clone https://github.com/<you>/dotfiles.git ~/code/dotfiles
+#   git clone https://github.com/Mahesh-Bishnoi/dotfiles.git ~/code/dotfiles
 #   cd ~/code/dotfiles && ./bootstrap.sh
 #
 # Flags:
