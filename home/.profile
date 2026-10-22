@@ -11,3 +11,6 @@ case ":$PATH:" in
 esac
 
 # Node is managed by mise (activated per-shell). nvm removed 2026-09-26.
+
+# Added by sonarqube-cli installer
+export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"

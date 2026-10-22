@@ -61,6 +61,8 @@ alias spring-init="$HOME/code/spring-initializr-tui/target/spring-initializr-tui
 # Machine specific tweaks (untracked, never committed).
 [ -f "$HOME/.zshrc.local" ] && . "$HOME/.zshrc.local"
 
+# SDKMAN — JVM build tools only (maven, gradle, springboot). Java itself is
+# owned by mise; keep this block last and never add a `java` candidate here.
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

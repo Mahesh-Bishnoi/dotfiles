@@ -79,3 +79,9 @@
 	last = log -1 --stat
 	lg = log --graph --pretty=format:'%h %ad %an %s' --date=short -20
 	whoami = config user.email
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/mahesh/.local/share/mise/installs/github-cli/2.101.0/gh_2.101.0_linux_amd64/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/mahesh/.local/share/mise/installs/github-cli/2.101.0/gh_2.101.0_linux_amd64/bin/gh auth git-credential

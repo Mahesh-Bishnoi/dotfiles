@@ -44,6 +44,8 @@ fi
 # Machine specific tweaks (untracked, never committed).
 [ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"
 
+# SDKMAN — JVM build tools only (maven, gradle, springboot). Java itself is
+# owned by mise; keep this block last and never add a `java` candidate here.
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -96,8 +96,22 @@ install_opencode() {
 
 install_sdkman() {
   if [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]; then log "SDKMAN already installed"; return; fi
-  log "installing SDKMAN (Java via SDKMAN; node via mise)"
+  log "installing SDKMAN (JVM build tools only: maven, gradle, springboot; Java comes from mise)"
   curl -s "https://get.sdkman.io" | bash
+}
+
+# mise owns Java. SDKMAN's init prepends every installed candidate and resets
+# JAVA_HOME, so a leftover `java` candidate silently overrides mise. Keep
+# SDKMAN installed but drop its Java once mise has a JDK to fall back on.
+prune_sdkman_java() {
+  local java_dir="$HOME/.sdkman/candidates/java"
+  [ -d "$java_dir" ] || return 0
+  if ! mise ls java 2>/dev/null | grep -q .; then
+    warn "SDKMAN still has Java but mise has none — run 'mise install', then re-run bootstrap"
+    return 0
+  fi
+  log "removing SDKMAN-managed Java (mise owns java): $(ls "$java_dir" | tr '\n' ' ')"
+  rm -rf "$java_dir"
 }
 
 install_fisher_sdkman_fish() {
@@ -105,7 +119,7 @@ install_fisher_sdkman_fish() {
   if fish -c 'functions -q sdk' 2>/dev/null; then log "fish sdkman plugin present"; return; fi
   log "installing fisher + sdkman-for-fish"
   fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher reitzig/sdkman-for-fish@v2.1.0' \
-    || warn "fisher install failed (offline?) — fish Java support skipped"
+    || warn "fisher install failed (offline?) — fish `sdk` command skipped"
 }
 
 link_file() { # link_file <repo-relative-path-under-home/>
@@ -153,6 +167,17 @@ verify() {
   eval "$(mise activate bash)" 2>/dev/null || true
   mise install 2>&1 | tail -1
   bash -c 'eval "$(mise activate bash)"; node --version' 2>/dev/null || warn "mise node not ready"
+  if command -v java >/dev/null; then
+    case "$(command -v java)" in
+      "$HOME/.local/share/mise/"*) echo "  java (mise): OK" ;;
+      *) warn "java resolves outside mise: $(command -v java)" ;;
+    esac
+    if [ -d "$HOME/.sdkman/candidates/java" ]; then
+      warn "SDKMAN still owns a java candidate — it will override mise"
+    fi
+  else
+    warn "java not on PATH (run: mise install)"
+  fi
   bash -ic 'echo $STARSHIP_SHELL' 2>/dev/null | grep -q bash && echo "  bash+starship: OK" || warn "bash starship check inconclusive (non-interactive)"
   fish -ic 'echo $STARSHIP_SHELL' 2>/dev/null | grep -q fish && echo "  fish+starship: OK" || warn "fish check skipped"
   zsh -ic 'echo $STARSHIP_SHELL' 2>/dev/null | grep -q zsh && echo "  zsh+starship: OK" || warn "zsh check skipped"
@@ -188,7 +213,7 @@ main() {
 
   setup_ssh
 
-  if [ "$LINKS_ONLY" = 0 ]; then verify; fi
+  if [ "$LINKS_ONLY" = 0 ]; then verify; prune_sdkman_java; fi
 
   cat <<'EOF'
 
@@ -196,7 +221,9 @@ Done. Remaining manual steps (with links):
   1. GitHub -> Settings -> SSH and GPG keys: add ~/.ssh/id_ed25519.pub twice,
      once as "Authentication Key" and once as "Signing Key".
   2. gh auth login   (browser flow; replaces git credential cache)
-  3. Java:  sdk install java 25.0.1-tem   (then: sdk default java 25.0.1-tem)
+  3. Java: managed by mise (java = "temurin-25" in ~/.config/mise/config.toml).
+     `mise install` puts java/JAVA_HOME on PATH. Do NOT `sdk install java`:
+     SDKMAN owns only maven/gradle/springboot here.
   4. opencode:  opencode auth login   (per provider)
   5. Restart your terminal. Fish users: fisher plugins sync on first start.
 EOF

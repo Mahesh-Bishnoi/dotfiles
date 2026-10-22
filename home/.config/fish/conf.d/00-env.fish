@@ -33,7 +33,10 @@ if test -z "$SSH_AUTH_SOCK"; and test -n "$XDG_RUNTIME_DIR"
 end
 
 # --- version managers ---
-# mise owns node/pnpm/yarn/zoxide/direnv/delta; SDKMAN owns Java only.
+# mise owns Java (JAVA_HOME + `java` on PATH) and node/pnpm/yarn/zoxide/direnv/delta.
+# SDKMAN stays installed for JVM build tools without a mise equivalent
+# (maven, gradle, springboot). Never install a `java` candidate in SDKMAN: its
+# init would prepend that JDK and reset JAVA_HOME, overriding mise.
 set -gx SDKMAN_DIR "$HOME/.sdkman"
 # Bury nvm leftovers so nothing loads the slow nvm.sh anymore.
 set -e NVM_DIR 2>/dev/null

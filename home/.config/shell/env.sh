@@ -60,10 +60,13 @@ if [ -z "${SSH_AUTH_SOCK-}" ] && [ -n "${XDG_RUNTIME_DIR-}" ]; then
 fi
 
 # --- version managers ---
-# mise is the single manager for node/pnpm/yarn/zoxide/direnv/delta.
-# Activation (`mise activate ...`) happens in each shell's rc file.
-# SDKMAN remains ONLY for Java (candidates). Do NOT export JAVA_HOME
-# statically here: SDKMAN updates it on `sdk use java ...`.
+# mise owns Java (JAVA_HOME + `java` on PATH) plus node/pnpm/yarn/python and
+# zoxide/direnv/delta. Activation (`mise activate ...`) happens in each shell's
+# rc file. Do NOT export JAVA_HOME statically: mise sets it per directory.
+# SDKMAN stays installed but is restricted to JVM build tools with no mise
+# equivalent (maven, gradle, springboot). Never install a `java` candidate in
+# SDKMAN: its init would prepend the JDK and reset JAVA_HOME, silently
+# overriding mise.
 export SDKMAN_DIR="$HOME/.sdkman"
 # Bury nvm: if a stale NVM_DIR leaks in (e.g. old universal vars), unset it so
 # nothing accidentally loads the slow nvm.sh anymore.
